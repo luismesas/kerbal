@@ -34,7 +34,7 @@ class GameEnv(object):
 
         # _old_time = time.time()
 
-        self.krpc.reset_controls()
+        # self.krpc.reset_controls()
 
         # print(f"elapsed_time_C-1[{time.time()-_old_time}]")
         # _old_time = time.time()
@@ -58,13 +58,13 @@ class GameEnv(object):
         if action == 0:
             pass
         elif action == 1:
-            self.krpc.vessel.control.pitch = -1
+            self.krpc.vessel.control.pitch += -0.1
         elif action == 2:
-            self.krpc.vessel.control.pitch = 1
+            self.krpc.vessel.control.pitch += 0.1
         elif action == 3:
-            self.krpc.vessel.control.yaw = -1
+            self.krpc.vessel.control.yaw += -0.1
         elif action == 4:
-            self.krpc.vessel.control.yaw = 1
+            self.krpc.vessel.control.yaw += 0.1
 
     def epoch_ending(self):
         telemetry = self.krpc.get_telemetry()
