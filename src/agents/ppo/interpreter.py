@@ -4,7 +4,7 @@ from .sensor import Sensor
 
 
 class Interpreter():
-    def __init__(self, n_features=3, frames=4):
+    def __init__(self, n_features=4, frames=4):
         self.n_features = n_features
         self.frames = frames
         self.state = np.zeros([self.frames, self.n_features])

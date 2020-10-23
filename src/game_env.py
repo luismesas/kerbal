@@ -18,11 +18,13 @@ class GameEnv(object):
 
         self.action_space: int = 2
         self.observation_space: int = 3
+        self.observation_space: int = 4
 
         self.last_altitude: float = 0
         self.last_pitch: float = 0
         self.last_heading: float = 0
         self.max_altitude: float = 45000
+        self.last_roll: float = 0
         self.steps_limit: int = 450
 
         self.ground_truth = pd.read_csv("artifacts/groundtruth.csv")
@@ -65,6 +67,10 @@ class GameEnv(object):
             self.krpc.vessel.control.yaw += -0.1
         elif action == 4:
             self.krpc.vessel.control.yaw += 0.1
+        elif action == 5:
+            self.krpc.vessel.control.roll += -0.1
+        elif action == 6:
+            self.krpc.vessel.control.roll += 0.1
 
     def epoch_ending(self):
         telemetry = self.krpc.get_telemetry()
@@ -118,15 +124,18 @@ class GameEnv(object):
         altitude = telemetry.f_mean_altitude
         heading = telemetry.heading()
         pitch = telemetry.pitch()
+        roll = telemetry.roll()
 
         state = [
             ((altitude + 0.2) / self.max_altitude) / 1.2,
             math.sin(math.radians(heading)) * (90 - pitch) / 90,
             math.cos(math.radians(heading)) * (90 - pitch) / 90,
+            roll/180,
         ]
 
         self.last_altitude = altitude
         self.last_pitch = pitch
+        self.last_roll = roll
 
         return state
 
