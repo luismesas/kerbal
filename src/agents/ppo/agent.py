@@ -40,7 +40,7 @@ class Agent():
 
         self.action_space = self.env.action_space
         self.input_frames: int = 4
-        self.output_model: int = (2 * self.env.action_space) + 1
+        self.output_model: int = (3 * self.env.action_space) + 1
         self.input_model: int = self.input_frames * self.env.observation_space
 
         self.knowledge: Knowledge = Knowledge(
