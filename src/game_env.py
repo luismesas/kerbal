@@ -78,6 +78,8 @@ class GameEnv(object):
             done = True
         elif altitude >= self.max_altitude:
             done = True
+        elif self.last_altitude < 10000 and self.last_pitch < 0:
+            done = True
 
         return done
 
